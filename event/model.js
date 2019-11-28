@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../db')
 const Ticket = require("../ticket/model");
+const User = require('../user/model')
 
 
 const Event = sequelize.define('event', {
@@ -16,7 +17,11 @@ const Event = sequelize.define('event', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  date: {
+  start_date: {
+    type: Sequelize.DATE,
+    allowNull: true
+  },
+  end_date: {
     type: Sequelize.DATE,
     allowNull: true
   }
@@ -27,9 +32,8 @@ const Event = sequelize.define('event', {
 
 Event.hasMany(Ticket);
 Ticket.belongsTo(Event);
-
-
-
+Event.belongsTo(User)
+User.hasMany(Event)
 
 
 module.exports = Event

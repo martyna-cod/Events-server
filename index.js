@@ -7,7 +7,9 @@ const eventRouter = require('./event/router')
 const User = require("./user/model");
 const Event = require('./event/model')
 const Ticket = require('./ticket/model')
+const Comment = require('./comments/model')
 const ticketRouter = require('./ticket/router')
+const commentRouter = require('./comments/router')
 const port = process.env.PORT || 4000
 
 
@@ -19,6 +21,7 @@ app.use(authRouter);
 app.use(userRouter);
 app.use(eventRouter)
 app.use(ticketRouter)
+app.use(commentRouter)
 
 
 app.get('/', (req, res) => res.send("Good morning"))

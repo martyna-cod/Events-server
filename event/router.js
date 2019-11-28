@@ -1,21 +1,23 @@
 const { Router } = require("express");
 const Event = require("./model");
-const Ticket = require('./model')
+const Ticket = require('../ticket/model')
+const User = require('../user/model')
 
 const router = new Router();
 
 router.get("/event", (req, res, next) => {
-    Event.findAll()
-
+	Event.findAll({include: [Ticket, User]})
 		.then(event => {
 			res.json(event);
         })
         .catch(next);
-     
 });
 
 router.post("/event", (req, res, next) => {
-	Event.create({ name: req.body.name, description: req.body.description, picture: req.body.picture, date: req.body.date })
+	Event.create({ name: req.body.name, 
+		description: req.body.description, 
+		picture: req.body.picture, 
+		date: req.body.date })
 		.then(event => res.json(event))
 		.catch(err => next(err));
 });
@@ -30,7 +32,7 @@ router.put("/event/:eventId", (req, res, next) => {
 router.get("/event/:eventId", (req, res, next) => {
 	Event.findByPk(parseInt(req.params.eventId))
 		.then(event => res.send({ event }))
-		.catch(next);
+		.catch(next);	
 });
 
 router.delete("/event/:eventId", (req, res, next) => {
