@@ -2,6 +2,7 @@ const { Router } = require("express");
 const Event = require("./model");
 const Ticket = require('../ticket/model')
 const User = require('../user/model')
+const auth = require('../auth/middleWare')
 
 const router = new Router();
 
@@ -14,10 +15,13 @@ router.get("/event", (req, res, next) => {
 });
 
 router.post("/event", (req, res, next) => {
-	Event.create({ name: req.body.name, 
+	Event.create({ 
+		name: req.body.name, 
 		description: req.body.description, 
 		picture: req.body.picture, 
-		date: req.body.date })
+		startDate: req.body.startDate,
+		endDate: req.body.endDate,
+	 })
 		.then(event => res.json(event))
 		.catch(err => next(err));
 });
@@ -44,5 +48,6 @@ router.delete("/event/:eventId", (req, res, next) => {
 		.then(number => res.send({ number }))
 		.catch(next);
 });
+
 
 module.exports = router;

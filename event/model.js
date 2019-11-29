@@ -17,11 +17,11 @@ const Event = sequelize.define('event', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  start_date: {
+  startDate: {
     type: Sequelize.DATE,
     allowNull: true
   },
-  end_date: {
+  endDate: {
     type: Sequelize.DATE,
     allowNull: true
   }
