@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const Ticket = require("./model");
 const auth = require('../auth/middleWare')
+
 //const Comment = require('../comments/model')
 
 const router = new Router();
@@ -25,8 +26,8 @@ router.get("/event/:eventId/ticket", (req, res, next) => {
 });
 
 router.post("/event/:eventId/createticket",  (req, res, next) => {
-	const user = req.body.userId
-	console.log(user, "usseeeeeeeeeer")
+
+//console.log(user, "usseeeeeeeeeer")
 	Ticket.create({
 		description: req.body.description, 
 		price: req.body.price, 
