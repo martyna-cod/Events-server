@@ -13,8 +13,13 @@ const Ticket = sequelize.define('ticket', {
     type: Sequelize.FLOAT  ,
     allowNull: false
   },
+  risk: {
+    type: Sequelize.FLOAT  ,
+    allowNull: false,
+    defaultValue: 0
+  },
 }, {
-  timestamps: false,
+  timestamps: true,
   tableName: 'tickets'
 })
 

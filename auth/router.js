@@ -3,6 +3,9 @@ const { toJWT, toData } = require("./jwt");
 const User = require("../user/model");
 const bcrypt = require("bcrypt");
 const auth = require('./middleWare')
+const commentRouter = require('../comments/router')
+const ticketRouter = require('../ticket/router')
+const eventRouter = require('../event/router')
 
 const router = new Router();
 
@@ -28,7 +31,9 @@ router.post("/login", (req, res) => {
           //our solution is here
           // 3. if the password is correct, return a JWT with the userId of the user (user.id)
           res.send({
-            jwt: toJWT({ userId: entity.id })
+            jwt: toJWT({ userId: entity.id }),
+            id: entity.id,
+            username: entity.username
           });
         } else {
           res.status(400).send({
@@ -52,7 +57,7 @@ router.get('/secret-endpoint', auth, (req, res) => {
     try {
       const data = toData(auth[1]);
       res.send({
-        message: 'Thanks for visiting the secret endpoint.',
+        message: `Thanks for visiting the secret endpoint, ${req.user}`,
         data
       });
     } catch (error) {
